@@ -1,2 +1,2 @@
-# urban-cycle-care
-UrbanCycleCare is a system that helps to manage and maintain bicycle lanes/paths/roads within the city.
+# BikeLanePro
+"BikeLanePro" is a comprehensive system designed to efficiently manage and maintain bicycle lanes throughout the city, ensuring safe and convenient cycling for all.
