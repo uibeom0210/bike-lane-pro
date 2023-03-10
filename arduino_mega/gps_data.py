@@ -29,4 +29,4 @@ while True:
     
     
 f.close() #파일 닫기
-ser.close()   # 시리얼 통신 종료qqq
+ser.close()   # 시리얼 통신 종료
