@@ -106,7 +106,8 @@ void LSM9DS1Class::end()
   _wire->end();
 }
 
-int LSM9DS1Class::readAcceleration(float& x, float& y, float& z)
+int LSM9DS1Class::readAcceleration(int16_t& x, int16_t& y, int16_t& z)
+//int LSM9DS1Class::readAcceleration(float& x, float& y, float& z)
 {
   int16_t data[3];
 
@@ -118,9 +119,12 @@ int LSM9DS1Class::readAcceleration(float& x, float& y, float& z)
     return 0;
   }
 
-  x = data[0] * 4.0 / 32768.0;
-  y = data[1] * 4.0 / 32768.0;
-  z = data[2] * 4.0 / 32768.0;
+  //x = data[0] * 4.0 / 32768.0;
+  //y = data[1] * 4.0 / 32768.0;
+  //z = data[2] * 4.0 / 32768.0;
+  x = data[0];
+  y = data[1];
+  z = data[2];
 
   return 1;
 }
@@ -183,7 +187,8 @@ float LSM9DS1Class::gyroscopeSampleRate()
   return 119.0F;
 }
 
-int LSM9DS1Class::readMagneticField(float& x, float& y, float& z)
+int LSM9DS1Class::readMagneticField(int16_t& x, int16_t& y, int16_t& z)
+//int LSM9DS1Class::readMagneticField(float& x, float& y, float& z)
 {
   int16_t data[3];
 
@@ -195,9 +200,12 @@ int LSM9DS1Class::readMagneticField(float& x, float& y, float& z)
     return 0;
   }
 
-  x = data[0] * 4.0 * 100.0 / 32768.0;
-  y = data[1] * 4.0 * 100.0 / 32768.0;
-  z = data[2] * 4.0 * 100.0 / 32768.0;
+  //x = data[0] * 4.0 * 100.0 / 32768.0;
+  //y = data[1] * 4.0 * 100.0 / 32768.0;
+  //z = data[2] * 4.0 * 100.0 / 32768.0;
+  x = data[0];
+  y = data[1];
+  z = data[2];
 
   return 1;
 }
