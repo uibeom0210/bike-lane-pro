@@ -86,8 +86,7 @@ void updateAccelscopeLevel() {
   int16_t x, y, z;
   if (IMU.accelerationAvailable()) {
     IMU.readAcceleration(x, y, z);
-
-    accelStringData = "[IMU][Accel]" + String(x) + "," + String(y) + "," + String(z);
+    accelStringData = String(x) + "," + String(y) + "," + String(z) + "," ;
     accelSensorLevel.writeValue(accelStringData);
   }
 #ifdef _DEBUG
@@ -100,7 +99,7 @@ void updateGyroscopeLevel() {
   if (IMU.gyroscopeAvailable()) {
     IMU.readGyroscope(x, y, z);
 
-    gyroStringData = "[IMU][Gyro]" + String(x) + "," + String(y) + "," + String(z) + '\n';
+    gyroStringData = String(x) + "," + String(y) + "," + String(z) + "," ;
     gyroSensorLevel.writeValue(gyroStringData);
   }
 #ifdef _DEBUG
@@ -112,7 +111,7 @@ void updateMagnscopeLevel() {
   if (IMU.magneticFieldAvailable()) {
     IMU.readMagneticField(x, y, z);
 
-    magnStringData = "[IMU][Magn]" + String(x) + "," + String(y) + "," + String(z);
+    magnStringData = String(x) + "," + String(y) + "," + String(z);
     magnSensorLevel.writeValue(magnStringData);
   }
 #ifdef _DEBUG
