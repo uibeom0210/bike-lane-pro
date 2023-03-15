@@ -1,21 +1,15 @@
 import serial
-import socket
-
-
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-host = 'localhost'
-port = 5000
-
-s.bind((host, port))
-s.listen(1)
-conn, addr = s.accept()
+import datetime
 
 ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)  # /dev/ttyACM0에서 9600으로 시리얼 포트 열기.
 count = 1
-f= open("/home/jetson/Desktop/project/bike-lane-pro/jetson/opencv_lane_detect/gps_data.txt",'w') # 파일 만들고 쓰기
-f.write("sequence,time,latitude,longitude\n")
+
+now = datetime.datetime.now()
+target_time = now + datetime.timedelta(minutes=5)
+f= open(f"/home/pi/gps_data{now.hour}-{now.minute}-{now.second}.csv",'w') # 파일 만들고 쓰기
+f.write("sequence,time,latitude,longitude,speed\n")
 while True:
-    r_data = conn.recv(1024).decode()
+    now = datetime.datetime.now()
     rx = ser.readline().decode()
     data_type = rx.split(']')
     if(data_type[0] == "[GPS"):
@@ -23,10 +17,13 @@ while True:
         f.write(str(count) + ',')
         f.write(data_type[-1])
         count = count + 1
+    if now >= target_time:
+        f.close()
+        f= open(f"/home/pi/gps_data{now.hour}-{now.minute}-{now.second}.csv",'w')
+        f.write("sequence,time,latitude,longitude,speed\n")        
+        target_time = now + datetime.timedelta(minutes=5)
     
-    num = int(r_data)
-    if(num == 10):break
-    
-    
+     #if 라즈베리 젯슨 통신 값    
 f.close() #파일 닫기
 ser.close()   # 시리얼 통신 종료
+
