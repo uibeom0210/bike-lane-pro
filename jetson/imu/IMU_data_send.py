@@ -4,17 +4,19 @@ import bleak
 from bleak import BleakClient
 import os
 
-#IMU_SENSOR_2D = 0
-#IMU_SENSOR_63 = 1
+IMU_SENSOR_2D = 0
+IMU_SENSOR_63 = 1
 
-#address = "2D:6F:AB:3C:F5:F4"
-#notity_charcteristic_uuid_accel = "741c12b9-e13c-4992-8a5e-fce46dec0bff"
-# notity_charcteristic_uuid_gyro = "baad41b2-f12e-4322-9ba6-22cd9ce09832"
-# notity_charcteristic_uuid_mag = "5748a25d-1834-4c68-a49b-81bf3aeb2e50"
-address = "63:C2:8F:29:36:89"
-notity_charcteristic_uuid_accel = "9d539e99-115c-485b-951d-cbd263821db7"
-#notity_charcteristic_uuid_gyro = "9adda6b7-219a-412c-aeba-976da3e92f10"
-#notity_charcteristic_uuid_mag = "b06d628d-1889-457a-a1a8-5f7adeed4941"
+if IMU_SENSOR_2D == 1:
+    address = "2D:6F:AB:3C:F5:F4" #_IMU_SENSOR_2D_
+    notity_charcteristic_uuid_accel = "741c12b9-e13c-4992-8a5e-fce46dec0bff"
+    notity_charcteristic_uuid_gyro = "baad41b2-f12e-4322-9ba6-22cd9ce09832"
+    notity_charcteristic_uuid_mag = "5748a25d-1834-4c68-a49b-81bf3aeb2e50"
+if IMU_SENSOR_63 == 1:
+    address = "63:C2:8F:29:36:89"
+    notity_charcteristic_uuid_accel = "9d539e99-115c-485b-951d-cbd263821db7"
+    notity_charcteristic_uuid_gyro = "9adda6b7-219a-412c-aeba-976da3e92f10"
+    notity_charcteristic_uuid_mag = "b06d628d-1889-457a-a1a8-5f7adeed4941"
 
 file_name = ""
 accel_ble_string = []
