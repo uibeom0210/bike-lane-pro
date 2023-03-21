@@ -14,35 +14,21 @@ def Canny(frame):
 def InterestRegion(frame, width, height):
     #Width 기준
     frame = np.array(frame, dtype=np.uint8)
-    rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
-    lower_white = np.array([110,110,110])
+    rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    lower_white = np.array([0,0,0])
     upper_white = np.array([255,255,255])
 
     mask_white = cv2.inRange(rgb, lower_white, upper_white)
-    res = cv2.bitwise_and(frame, frame, mask = mask_white)
-
-    area = np.array([[(width,(height*0.4)),(0,(height*0.65)),(0,height), (width,height),(width,(height*0.6))]], np.int32) # Area 지정
+    res = cv2.bitwise_and(frame, frame, mask=mask_white)
+    
+    area = np.array([[(width*0.4,0),(0,height),(0,height), (width,height),(width*0.7,0)]], np.int32) # Area 지정
     mask = np.zeros_like(frame)
-    cv2.fillPoly(mask, area, (0,150,255))
-    interestarea = cv2.bitwise_and(res, mask)
-    #cv2.imshow('mask',interestarea)
+    cv2.fillPoly(mask, area, color=(255,255,255)) # 관심영역 내부를 색칠한 이미지 생성
+    
+    interestarea = cv2.bitwise_and(res, mask) # 원본 이미지와 교집합 구하기
+    
     return interestarea
 
-def region_of_interest(img, vertices):  
-    mask = np.zeros_like(img)
-
-    if len(img.shape) > 2:
-        channel_count = img.shape[2]
-        ignore_mask_color = (255, ) * channel_count
-    else:
-        ignore_mask_color = 255
-
-    cv2.fillPoly(mask, vertices, ignore_mask_color)
-    # vertiecs로 만든 polygon으로 이미지의 ROI를 정하고 ROI 이외의 영역은 모두 검정색으로 정한다.
-
-    masked_image = cv2.bitwise_and(img, mask)
-    return masked_image 
 
 
 def Hough_lines(interestregion, rho, theta, threshold, min_line_len, max_line_gap):
@@ -75,8 +61,8 @@ def top_view(frame, width, height):
     cv2.circle(frame, (int(width*0.2), int(height*0.6)), 5, (255, 255, 255), -1)
     cv2.circle(frame, (int(width * 0.7), int(height * 0.6)), 5, (255, 255, 255), -1)
     '''
-    left_bottom = [0,height]
-    right_bottom = [width,height]
+    left_bottom = [0,height*0.1]
+    right_bottom = [width,height*0.1]
     left_top = [int(width*0.2),int(height*0.55)]
     right_top = [int(width*0.8), int(height*0.55)]
     pts1 = np.float32([[left_top,left_bottom,right_top,right_bottom]])
