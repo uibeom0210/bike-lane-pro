@@ -1,12 +1,22 @@
 // #define _DEBUG
 #define _RELEASE
+#define _IMU_SENSOR_2D_
+//#define _IMU_SENSOR_63_
 #include <Arduino_LSM9DS1.h>
 #include <ArduinoBLE.h>
 
+#ifdef _IMU_SENSOR_2D_ 
 BLEService sensorService("de1b9607-4b2f-4888-848f-003c407a0edd");
 BLEStringCharacteristic accelSensorLevel("741c12b9-e13c-4992-8a5e-fce46dec0bff", BLERead | BLENotify, 30);
 BLEStringCharacteristic gyroSensorLevel("baad41b2-f12e-4322-9ba6-22cd9ce09832", BLERead | BLENotify, 30);
 BLEStringCharacteristic magnSensorLevel("5748a25d-1834-4c68-a49b-81bf3aeb2e50", BLERead | BLENotify, 30);
+#endif
+#ifdef _IMU_SENSOR_63_
+BLEService sensorService("18e678f5-1be5-46a7-a8f9-56f740244fc1");
+BLEStringCharacteristic accelSensorLevel("9d539e99-115c-485b-951d-cbd263821db7", BLERead | BLENotify, 30);
+BLEStringCharacteristic gyroSensorLevel("9adda6b7-219a-412c-aeba-976da3e92f10", BLERead | BLENotify, 30);
+BLEStringCharacteristic magnSensorLevel("b06d628d-1889-457a-a1a8-5f7adeed4941", BLERead | BLENotify, 30);
+#endif
 
 // last sensor data
 int16_t oldLevelgyro[3] = { 0 };
