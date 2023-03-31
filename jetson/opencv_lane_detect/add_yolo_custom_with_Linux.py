@@ -55,7 +55,6 @@ oldnow = 0
 model_oldnow=0
 minute =0
 cnt = 0
-frame_skip = 5
 pre_time= datetime.datetime.now()
 pre_HMS=pre_time.strftime('%H%M%S')
 pre = pre_HMS
